@@ -11,6 +11,6 @@
 #
 class Character < ApplicationRecord
   def movie
-    matching_movies = Movie.where({ :id => movie_id })
+    matching_movie = Movie.where({ :id => movie_id }).at(0)
   end
 end
