@@ -24,11 +24,34 @@ class Movie < ApplicationRecord
 
   def cast
     # many to many
+
+    # characters = Character.where({ :movie_id => self.id })
+    # actors = []
+    # characters.each do |character|
+    #   actors.push(Actor.where({ :id => character.actor_id }).at(0))
+    # end
+    # return actors
+
+    # this is better, returns ActiveRecord Relations:
+    # actor_ids = []
+    # characters = Character.where({ :movie_id => self.id })
+
+    # characters.each do |character|
+    #   actor_ids.push(character.actor_id)
+    # end
+    # actors = (Actor.where({ :id => actor_ids })
+   
+    # return actors
+
     characters = Character.where({ :movie_id => self.id })
-    actors = []
-    character.each do |character|
-      actors.push(Actor.where({ :id => character.actor_id }).at(0))
-    end
+    actor_ids = characters.map_relation_to_array(:actor_id)
+    # characters.each do |character|
+    #   actor_ids.push(character.actor_id)
+    # end
+    actors = (Actor.where({ :id => actor_ids })
+   
     return actors
+
+
   end
 end
