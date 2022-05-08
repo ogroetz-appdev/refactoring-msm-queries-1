@@ -21,4 +21,14 @@ class Movie < ApplicationRecord
     # one to many
     Director.where({ :id => self.director_id }).at(0)
   end
+
+  def cast
+    # many to many
+    characters = Character.where({ :movie_id => self.id })
+    actors = []
+    character.each do |character|
+      actors.push(Actor.where({ :id => character.actor_id }).at(0))
+    end
+    return actors
+  end
 end
